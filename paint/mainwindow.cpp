@@ -1,10 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-
-
-
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -15,8 +11,13 @@ MainWindow::MainWindow(QWidget *parent)
     QHBoxLayout *draw_layout = new QHBoxLayout();
     QVBoxLayout *main_layout = new QVBoxLayout();
 
+    canvas = new Draw_widget();
+
+
     main_layout->addLayout(buttons_layout, 0);
     main_layout->addLayout(draw_layout, 1);
+
+    draw_layout->addWidget(canvas, 0);
 
 
 
@@ -77,6 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::add_rectangle(){
+
     QPainter rectangle_painter(this);
     rectangle_painter.drawRect(QRect(80,20,30,40));
 
@@ -110,8 +112,6 @@ void MainWindow::downloading_shape(){
     qDebug()<<"7";
 }
 
-
-MainWindow::~MainWindow()
-{
+MainWindow::~MainWindow(){
     delete ui;
 }

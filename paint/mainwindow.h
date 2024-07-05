@@ -4,8 +4,7 @@
 #include <QMainWindow>
 #include <QHBoxLayout>
 #include <QPushButton>
-#include <QPainter>
-
+#include "draw_widget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -35,7 +34,10 @@ private:
     QVBoxLayout *main_layout;
     QHBoxLayout *draw_layout;
     QHBoxLayout *buttons_layout;
+    Draw_widget *canvas;
 
 
 };
+
+
 #endif // MAINWINDOW_H

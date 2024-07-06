@@ -6,7 +6,7 @@
 #include <QPalette>
 #include <QMouseEvent>
 #include <QList>
-#include <QLayout>
+#include <QHBoxLayout>
 #include "rectangle.h"
 #include "ellipse.h"
 #include "triangle.h"

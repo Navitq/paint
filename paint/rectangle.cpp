@@ -32,9 +32,14 @@ void Rectangle::paintEvent(QPaintEvent*)
     painter.setPen(QPen(Qt::black, 3));
     QRect rect(first.x(), first.y(), second.x()-first.x(), second.y()-first.y());
     painter.drawRect(rect);
+    center_x = first.x() + (second.x() - first.x())/2;
+    center_y = first.y() + (second.y() - first.y())/2;
     qDebug("3333");
 
 }
+
+
+
 
  Rectangle::~Rectangle(){
     qDebug("444444444");

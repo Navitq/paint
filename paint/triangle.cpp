@@ -31,7 +31,8 @@ void Triangle::paintEvent(QPaintEvent*)
     painter.drawLine(first.x(), first.y(), second.x(), second.y());
     painter.drawLine( second.x(), second.y(), (second.x()-first.x())/2-(second.y()-first.y())/2+first.x() , (second.x()-first.x())*sqrt(3)/2+(second.y()-first.y())*sqrt(3)/2+first.y());
     painter.drawLine((second.x()-first.x())/2-(second.y()-first.y())/2+first.x() , (second.x()-first.x())*sqrt(3)/2+(second.y()-first.y())*sqrt(3)/2+first.y(), first.x(), first.y());
-
+    center_x = (first.x() + second.x() + (second.x()-first.x())/2-(second.y()-first.y())/2+first.x())/3;
+    center_y = (first.y() + second.y() + (second.x()-first.x())*sqrt(3)/2+(second.y()-first.y())*sqrt(3)/2+first.y())/3;
     qDebug("3333");
 
 }

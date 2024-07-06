@@ -16,6 +16,8 @@ public:
     void paintEvent(QPaintEvent*) ;
     void mouseMoveEvent(QMouseEvent * ev) override;
     void mousePressEvent(QMouseEvent * ev) override;
+    double center_x;
+    double center_y;
     QHBoxLayout *draw_canvas;
     QPoint first;
     QPoint second;

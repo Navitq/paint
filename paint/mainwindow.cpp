@@ -20,16 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
     draw_layout->addWidget(canvas, 0);
 
 
-
-    //QGroupBox *buttons_box = new QGroupBox(tr("Geometric shapes"));
-
-    // QGroupBox *shapes_box = new QGroupBox(tr("Geometric shapes"));
-    // QGroupBox *linked_box = new QGroupBox(tr("Link shapes"));
-    // QGroupBox *linked_box = new QGroupBox(tr("Link shapes"));
-    // QGroupBox *action_box = new QGroupBox(tr("Shape actions"));
-    // QGroupBox *load_box = new QGroupBox(tr("Load actions"));
-
-
     QPushButton *rectangle = new QPushButton("Прямоугольник");
     connect(rectangle, SIGNAL(clicked()), this, SLOT(add_rectangle()));
 
@@ -82,11 +72,11 @@ void MainWindow::add_rectangle(){
 }
 
 void MainWindow::add_triangle(){
-    qDebug()<<"1";
+    canvas->draw_triangle();
 }
 
 void MainWindow::add_ellipse(){
-    qDebug()<<"2";
+    canvas->draw_ellipse();
 }
 
 void MainWindow::add_link(){

@@ -4,10 +4,6 @@
 Draw_widget::Draw_widget(QWidget *parent)
     : QWidget{parent}
 {
-    // first.setX(0);
-    // first.setY(0);
-    // second.setX(0);
-    // second.setY(0);
     QHBoxLayout *draw_canvas = new QHBoxLayout();
 
     this->setLayout(draw_canvas);
@@ -18,38 +14,27 @@ Draw_widget::Draw_widget(QWidget *parent)
     this->setAutoFillBackground(true);
     this->setPalette(Pal);
     this->show();
+
     QList <Rectangle*> rectangel_v;
-
-
+    QList <Ellipse*> ellipse_v;
+    QList <Triangle*> triangle_v;
 }
-
-// void Draw_widget::mousePressEvent(QMouseEvent * ev) {
-//     first = ev->pos();
-// }
-
-// void Draw_widget::mouseMoveEvent(QMouseEvent * ev) {
-//     second = ev->pos();
-//     update();
-// }
-
-// void Draw_widget::paintEvent(QPaintEvent*)
-// {
-//     QPainter painter(this);
-//     painter.setPen(QPen(Qt::black, 3));
-//     QRect rect(first.x(), first.y(), second.x()-first.x(), second.y()-first.y());
-//     painter.drawRect(rect);
-// }
 
     void Draw_widget::draw_rectangle(){
         Rectangle *new_rect = new Rectangle();
-
-
         this->layout()->addWidget(new_rect);
-
-
-
-
         rectangel_v.push_back(new_rect);
     }
 
+    void Draw_widget::draw_ellipse(){
+        Ellipse *new_ellipse = new Ellipse();
+        this->layout()->addWidget(new_ellipse);
+        ellipse_v.push_back(new_ellipse);
+    }
+
+    void Draw_widget::draw_triangle(){
+        Triangle *new_triangle = new Triangle();
+        this->layout()->addWidget(new_triangle);
+        triangle_v.push_back(new_triangle);
+    }
 

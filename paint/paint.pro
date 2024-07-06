@@ -10,14 +10,18 @@ CONFIG += c++17
 
 SOURCES += \
     draw_widget.cpp \
+    ellipse.cpp \
     main.cpp \
     mainwindow.cpp \
-    rectangle.cpp
+    rectangle.cpp \
+    triangle.cpp
 
 HEADERS += \
     draw_widget.h \
+    ellipse.h \
     mainwindow.h \
-    rectangle.h
+    rectangle.h \
+    triangle.h
 
 FORMS += \
     mainwindow.ui

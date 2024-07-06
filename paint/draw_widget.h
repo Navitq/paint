@@ -8,7 +8,8 @@
 #include <QList>
 #include <QLayout>
 #include "rectangle.h"
-
+#include "ellipse.h"
+#include "triangle.h"
 
 
 
@@ -19,15 +20,13 @@ class Draw_widget : public QWidget
 
 public:
     QList <Rectangle*> rectangel_v;
+    QList <Ellipse*> ellipse_v;
+    QList <Triangle*> triangle_v;
     explicit Draw_widget(QWidget *parent = nullptr);
-    // void paintEvent(QPaintEvent*) override;
     void draw_rectangle();
-    // void mouseMoveEvent(QMouseEvent * ev) override;
-    // void mousePressEvent(QMouseEvent * ev) override;
+    void draw_ellipse();
+    void draw_triangle();
     QWidget *appWidget;
-    // QPoint first;
-    // QPoint second;
-
 signals:
 };
 

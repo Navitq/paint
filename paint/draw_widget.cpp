@@ -8,13 +8,18 @@ Draw_widget::Draw_widget(QWidget *parent)
     // first.setY(0);
     // second.setX(0);
     // second.setY(0);
+    QHBoxLayout *draw_canvas = new QHBoxLayout();
 
+    this->setLayout(draw_canvas);
+
+    QWidget *appWidget = new QWidget();
     QPalette Pal(palette());
     Pal.setColor(QPalette::Window, Qt::white);
     this->setAutoFillBackground(true);
     this->setPalette(Pal);
     this->show();
     QList <Rectangle*> rectangel_v;
+
 
 }
 
@@ -36,8 +41,15 @@ Draw_widget::Draw_widget(QWidget *parent)
 // }
 
     void Draw_widget::draw_rectangle(){
-        Rectangle *newRect = new Rectangle();
-        rectangel_v.push_back(newRect);
+        Rectangle *new_rect = new Rectangle();
+
+
+        this->layout()->addWidget(new_rect);
+
+
+
+
+        rectangel_v.push_back(new_rect);
     }
 
 

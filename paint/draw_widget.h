@@ -6,7 +6,10 @@
 #include <QPalette>
 #include <QMouseEvent>
 #include <QList>
+#include <QLayout>
 #include "rectangle.h"
+
+
 
 
 class Draw_widget : public QWidget
@@ -21,7 +24,7 @@ public:
     void draw_rectangle();
     // void mouseMoveEvent(QMouseEvent * ev) override;
     // void mousePressEvent(QMouseEvent * ev) override;
-
+    QWidget *appWidget;
     // QPoint first;
     // QPoint second;
 

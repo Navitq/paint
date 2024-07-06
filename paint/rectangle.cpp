@@ -7,20 +7,21 @@ Rectangle::Rectangle(QWidget *parent)
     first.setY(0);
     second.setX(0);
     second.setY(0);
-    qDebug("11111");
+    qDebug("213123");
 
 }
 
+
 void Rectangle::mousePressEvent(QMouseEvent * ev) {
     first = ev->pos();
-    qDebug("11111");
+    qDebug("2222");
 }
 
 void Rectangle::mouseMoveEvent(QMouseEvent * ev) {
 
     second = ev->pos();
     update();
-    qDebug("11111");
+    qDebug("5555");
 
 }
 
@@ -31,7 +32,7 @@ void Rectangle::paintEvent(QPaintEvent*)
     painter.setPen(QPen(Qt::black, 3));
     QRect rect(first.x(), first.y(), second.x()-first.x(), second.y()-first.y());
     painter.drawRect(rect);
-    qDebug("444444444");
+    qDebug("3333");
 
 }
 

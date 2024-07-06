@@ -5,6 +5,8 @@
 #include <QPainter>
 #include <QPalette>
 #include <QMouseEvent>
+#include <QHBoxLayout>
+#include <QPushButton>
 
 
 class Rectangle : public QWidget
@@ -12,10 +14,10 @@ class Rectangle : public QWidget
     Q_OBJECT
 public:
     explicit Rectangle(QWidget *parent = nullptr);
-    void paintEvent(QPaintEvent*) override;
+    void paintEvent(QPaintEvent*) ;
     void mouseMoveEvent(QMouseEvent * ev) override;
     void mousePressEvent(QMouseEvent * ev) override;
-
+    QHBoxLayout *draw_canvas;
     QPoint first;
     QPoint second;
     ~Rectangle();

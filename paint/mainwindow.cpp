@@ -78,8 +78,7 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::add_rectangle(){
-
-
+    canvas->draw_rectangle();
 }
 
 void MainWindow::add_triangle(){

@@ -5,6 +5,8 @@
 #include <QPainter>
 #include <QPalette>
 #include <QMouseEvent>
+#include <QList>
+#include "rectangle.h"
 
 
 class Draw_widget : public QWidget
@@ -13,14 +15,15 @@ class Draw_widget : public QWidget
 
 
 public:
+    QList <Rectangle*> rectangel_v;
     explicit Draw_widget(QWidget *parent = nullptr);
-    void paintEvent(QPaintEvent*) override;
-    void draw_rectangle(QPaintEvent*);
-    void mouseMoveEvent(QMouseEvent * ev) override;
-    void mousePressEvent(QMouseEvent * ev) override;
+    // void paintEvent(QPaintEvent*) override;
+    void draw_rectangle();
+    // void mouseMoveEvent(QMouseEvent * ev) override;
+    // void mousePressEvent(QMouseEvent * ev) override;
 
-    QPoint first;
-    QPoint second;
+    // QPoint first;
+    // QPoint second;
 
 signals:
 };

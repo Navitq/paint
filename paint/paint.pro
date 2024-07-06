@@ -11,11 +11,13 @@ CONFIG += c++17
 SOURCES += \
     draw_widget.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    rectangle.cpp
 
 HEADERS += \
     draw_widget.h \
-    mainwindow.h
+    mainwindow.h \
+    rectangle.h
 
 FORMS += \
     mainwindow.ui

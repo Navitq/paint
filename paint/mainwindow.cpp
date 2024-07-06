@@ -79,8 +79,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::add_rectangle(){
 
-    QPainter rectangle_painter(this);
-    rectangle_painter.drawRect(QRect(80,20,30,40));
 
 }
 

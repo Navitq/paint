@@ -16,6 +16,8 @@ public:
     void paintEvent(QPaintEvent*) ;
     void mouseMoveEvent(QMouseEvent * ev) override;
     void mousePressEvent(QMouseEvent * ev) override;
+    void mouseReleaseEvent(QMouseEvent * ev);
+    bool is_drawing;
     double center_x;
     double center_y;
     QHBoxLayout *draw_canvas;
@@ -23,6 +25,7 @@ public:
     QPoint second;
     ~Triangle();
 signals:
+    void is_shape_finished();
 };
 
 #endif // TRIANGLE_H

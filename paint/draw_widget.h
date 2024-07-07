@@ -17,6 +17,8 @@ class Draw_widget : public QWidget
 {
     Q_OBJECT
 
+public slots:
+    void on_shape_finished();
 
 public:
     QList <Rectangle*> rectangel_v;
@@ -24,6 +26,7 @@ public:
     QList <Triangle*> triangle_v;
     explicit Draw_widget(QWidget *parent = nullptr);
     void resizeEvent(QResizeEvent *event);
+    short current_shape;
     void draw_rectangle();
     void draw_ellipse();
     void draw_triangle();

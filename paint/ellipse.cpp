@@ -8,15 +8,23 @@ Ellipse::Ellipse(QWidget *parent)
     second.setX(0);
     second.setY(0);
     qDebug("213123");
+    is_drawing = true;
 }
 
 void Ellipse::mousePressEvent(QMouseEvent * ev) {
+    if (!is_drawing) {
+        return;
+    }
     first = ev->pos();
     qDebug("2222");
 }
 
-void Ellipse::mouseMoveEvent(QMouseEvent * ev) {
 
+
+void Ellipse::mouseMoveEvent(QMouseEvent * ev) {
+    if (!is_drawing) {
+        return;
+    }
     second = ev->pos();
     update();
     qDebug("5555");
@@ -34,6 +42,15 @@ void Ellipse::paintEvent(QPaintEvent*)
     qDebug("3333");
 
 }
+
+void Ellipse::mouseReleaseEvent(QMouseEvent * ev) {
+    if(is_drawing){
+        emit is_shape_finished();
+    }
+    is_drawing = false;
+
+}
+
 
 Ellipse::~Ellipse(){
     qDebug("444444444");

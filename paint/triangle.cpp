@@ -3,6 +3,7 @@
 Triangle::Triangle(QWidget *parent)
     : QWidget{parent}
 {
+    is_drawing = true;
     first.setX(0);
     first.setY(0);
     second.setX(0);
@@ -11,12 +12,19 @@ Triangle::Triangle(QWidget *parent)
 }
 
 void Triangle::mousePressEvent(QMouseEvent * ev) {
+    if (!is_drawing) {
+        return;
+    }
     first = ev->pos();
     qDebug("2222");
 }
 
-void Triangle::mouseMoveEvent(QMouseEvent * ev) {
 
+
+void Triangle::mouseMoveEvent(QMouseEvent * ev) {
+    if (!is_drawing) {
+        return;
+    }
     second = ev->pos();
     update();
     qDebug("5555");
@@ -35,6 +43,13 @@ void Triangle::paintEvent(QPaintEvent*)
     center_y = (first.y() + second.y() + (second.x()-first.x())*sqrt(3)/2+(second.y()-first.y())*sqrt(3)/2+first.y())/3;
     qDebug("3333");
 
+}
+
+void Triangle::mouseReleaseEvent(QMouseEvent * ev) {
+    if(is_drawing){
+        emit is_shape_finished();
+    }
+    is_drawing = false;
 }
 
 Triangle::~Triangle(){

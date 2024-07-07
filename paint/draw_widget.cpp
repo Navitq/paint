@@ -20,6 +20,7 @@ Draw_widget::Draw_widget(QWidget *parent)
     QList <Rectangle*> rectangel_v;
     QList <Ellipse*> ellipse_v;
     QList <Triangle*> triangle_v;
+
 }
 
     void Draw_widget::resizeEvent(QResizeEvent *event) {
@@ -36,31 +37,53 @@ Draw_widget::Draw_widget(QWidget *parent)
     }
 
     void Draw_widget::draw_rectangle(){
+        current_shape = 1;
         Rectangle *new_rect = new Rectangle();
         //this->layout()->addWidget(new_rect);
         new_rect->setGeometry(this->rect());
         new_rect->setParent(this);
         new_rect->show();
-
+        connect(new_rect, new_rect->is_shape_finished, this, on_shape_finished);
         rectangel_v.push_back(new_rect);
     }
 
     void Draw_widget::draw_ellipse(){
+        current_shape = 3;
         Ellipse *new_ellipse = new Ellipse();
         //this->layout()->addWidget(new_ellipse);
         new_ellipse->setGeometry(this->rect());
         new_ellipse->setParent(this);
         new_ellipse->show();
+        connect(new_ellipse, new_ellipse->is_shape_finished, this, on_shape_finished);
         ellipse_v.push_back(new_ellipse);
     }
 
     void Draw_widget::draw_triangle(){
+        current_shape = 2;
         Triangle *new_triangle = new Triangle();
         //this->layout()->addWidget(new_triangle)
         new_triangle->setGeometry(this->rect());
         new_triangle->setParent(this);
-        new_triangle->show();;
+        new_triangle->show();
+        connect(new_triangle, new_triangle->is_shape_finished, this, on_shape_finished);
         triangle_v.push_back(new_triangle);
+    }
+
+    void Draw_widget::on_shape_finished(){
+        switch (current_shape) {
+        case 1:
+            draw_rectangle();
+            break;
+        case 2:
+            draw_triangle();
+            break;
+        case 3:
+            draw_ellipse();
+            break;
+        default:
+            return;
+            break;
+        }
     }
 
 

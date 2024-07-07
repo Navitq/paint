@@ -17,13 +17,16 @@ public:
     void paintEvent(QPaintEvent*) ;
     void mouseMoveEvent(QMouseEvent * ev) override;
     void mousePressEvent(QMouseEvent * ev) override;
+    void mouseReleaseEvent(QMouseEvent * ev);
     double center_x;
     double center_y;
+    bool is_drawing;
     QHBoxLayout *draw_canvas;
     QPoint first;
     QPoint second;
     ~Rectangle();
 signals:
+    void is_shape_finished();
 };
 
 #endif // RECTANGLE_H

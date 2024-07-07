@@ -13,10 +13,10 @@ Rectangle::Rectangle(QWidget *parent)
 
 void Rectangle::mousePressEvent(QMouseEvent * ev) {
     if (!is_drawing) {
+        qDebug("7777777");
         return;
     }
     first = ev->pos();
-    qDebug("2222");
 }
 
 void Rectangle::mouseMoveEvent(QMouseEvent * ev) {
@@ -25,7 +25,6 @@ void Rectangle::mouseMoveEvent(QMouseEvent * ev) {
     }
     second = ev->pos();
     update();
-    qDebug("5555");
 }
 
 void Rectangle::paintEvent(QPaintEvent*)
@@ -36,11 +35,9 @@ void Rectangle::paintEvent(QPaintEvent*)
     painter.drawRect(rect);
     center_x = first.x() + (second.x() - first.x())/2;
     center_y = first.y() + (second.y() - first.y())/2;
-    qDebug("3333");
 }
 
  Rectangle::~Rectangle(){
-    qDebug("444444444");
 }
 
  void Rectangle::mouseReleaseEvent(QMouseEvent * ev) {

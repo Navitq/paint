@@ -18,9 +18,8 @@ Draw_widget::Draw_widget(QWidget *parent)
     this->show();
 
     QList <Rectangle*> rectangel_v;
-    QList <Ellipse*> ellipse_v;
     QList <Triangle*> triangle_v;
-
+    QList <Ellipse*> ellipse_v;
 }
 
     void Draw_widget::resizeEvent(QResizeEvent *event) {
@@ -69,6 +68,41 @@ Draw_widget::Draw_widget(QWidget *parent)
         triangle_v.push_back(new_triangle);
     }
 
+    void Draw_widget::shape_moving(){
+        delete_shape();
+        current_shape = 0;
+
+    }
+
+    void Draw_widget::delete_shape(){
+        switch (current_shape) {
+        case 1:
+            if(rectangel_v.length() < 1){
+                return;
+            }
+            delete rectangel_v[rectangel_v.length()-1];
+            rectangel_v.pop_back();
+            break;
+        case 2:
+            if(triangle_v.length() < 1){
+                return;
+            }
+            delete triangle_v[triangle_v.length()-1];
+            triangle_v.pop_back();
+            break;
+        case 3:
+            if(ellipse_v.length() < 1){
+                return;
+            }
+            delete ellipse_v[ellipse_v.length()-1];
+            ellipse_v.pop_back();
+            break;
+        default:
+            return;
+            break;
+        }
+    }
+
     void Draw_widget::on_shape_finished(){
         switch (current_shape) {
         case 1:
@@ -85,6 +119,7 @@ Draw_widget::Draw_widget(QWidget *parent)
             break;
         }
     }
+
 
 
 

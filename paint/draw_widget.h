@@ -24,12 +24,14 @@ public:
     QList <Rectangle*> rectangel_v;
     QList <Ellipse*> ellipse_v;
     QList <Triangle*> triangle_v;
+    short current_shape;
     explicit Draw_widget(QWidget *parent = nullptr);
     void resizeEvent(QResizeEvent *event);
-    short current_shape;
     void draw_rectangle();
     void draw_ellipse();
     void draw_triangle();
+    void shape_moving();
+    void delete_shape();
     QWidget *appWidget;
 signals:
 };

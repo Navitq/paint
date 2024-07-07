@@ -22,6 +22,7 @@ public:
     double center_y;
     bool is_drawing;
     QHBoxLayout *draw_canvas;
+    QPoint move_point;
     QPoint first;
     QPoint second;
     ~Rectangle();

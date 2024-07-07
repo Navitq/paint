@@ -12,18 +12,23 @@ Rectangle::Rectangle(QWidget *parent)
 }
 
 void Rectangle::mousePressEvent(QMouseEvent * ev) {
-    if (!is_drawing) {
-        qDebug("7777777");
-        return;
+    if (is_drawing) {
+        first = ev->pos();
+    } else {
+        move_point = ev->pos();
     }
-    first = ev->pos();
 }
 
 void Rectangle::mouseMoveEvent(QMouseEvent * ev) {
-    if (!is_drawing) {
-        return;
+    if (is_drawing) {
+        second = ev->pos();
+    } else {
+        // first.setX(first.x() + ev->pos().x() - move_point.x());
+        // first.setY(first.y() + ev->pos().y() - move_point.y());
+        // second.setX(second.x() + ev->pos().x() - second.x());
+        // second.setY(second.y() + ev->pos().y() - second.y());
     }
-    second = ev->pos();
+
     update();
 }
 
@@ -43,6 +48,8 @@ void Rectangle::paintEvent(QPaintEvent*)
  void Rectangle::mouseReleaseEvent(QMouseEvent * ev) {
      if(is_drawing){
         emit is_shape_finished();
+     } else {
+
      }
     is_drawing = false;
  }

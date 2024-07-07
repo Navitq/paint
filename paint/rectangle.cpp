@@ -11,7 +11,6 @@ Rectangle::Rectangle(QWidget *parent)
 
 }
 
-
 void Rectangle::mousePressEvent(QMouseEvent * ev) {
     first = ev->pos();
     qDebug("2222");
@@ -27,7 +26,6 @@ void Rectangle::mouseMoveEvent(QMouseEvent * ev) {
 
 void Rectangle::paintEvent(QPaintEvent*)
 {
-
     QPainter painter(this);
     painter.setPen(QPen(Qt::black, 3));
     QRect rect(first.x(), first.y(), second.x()-first.x(), second.y()-first.y());
@@ -35,11 +33,7 @@ void Rectangle::paintEvent(QPaintEvent*)
     center_x = first.x() + (second.x() - first.x())/2;
     center_y = first.y() + (second.y() - first.y())/2;
     qDebug("3333");
-
 }
-
-
-
 
  Rectangle::~Rectangle(){
     qDebug("444444444");

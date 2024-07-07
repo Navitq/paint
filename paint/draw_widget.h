@@ -23,6 +23,7 @@ public:
     QList <Ellipse*> ellipse_v;
     QList <Triangle*> triangle_v;
     explicit Draw_widget(QWidget *parent = nullptr);
+    void resizeEvent(QResizeEvent *event);
     void draw_rectangle();
     void draw_ellipse();
     void draw_triangle();

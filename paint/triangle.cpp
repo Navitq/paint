@@ -1,57 +1,50 @@
 #include "triangle.h"
 
-Triangle::Triangle(QWidget *parent)
-    : QWidget{parent}
-{
-    is_drawing = true;
-    first.setX(0);
-    first.setY(0);
-    second.setX(0);
-    second.setY(0);
-    qDebug("213123");
-}
-
-void Triangle::mousePressEvent(QMouseEvent * ev) {
-    if (!is_drawing) {
-        return;
-    }
-    first = ev->pos();
-    qDebug("2222");
-}
-
-
-
-void Triangle::mouseMoveEvent(QMouseEvent * ev) {
-    if (!is_drawing) {
-        return;
-    }
-    second = ev->pos();
-    update();
-    qDebug("5555");
-
-}
+Triangle::Triangle(Shape *parent)
+    : Shape{parent}
+{}
 
 void Triangle::paintEvent(QPaintEvent*)
 {
-
     QPainter painter(this);
     painter.setPen(QPen(Qt::black, 3));
-    painter.drawLine(first.x(), first.y(), second.x(), second.y());
-    painter.drawLine( second.x(), second.y(), (second.x()-first.x())/2-(second.y()-first.y())/2+first.x() , (second.x()-first.x())*sqrt(3)/2+(second.y()-first.y())*sqrt(3)/2+first.y());
-    painter.drawLine((second.x()-first.x())/2-(second.y()-first.y())/2+first.x() , (second.x()-first.x())*sqrt(3)/2+(second.y()-first.y())*sqrt(3)/2+first.y(), first.x(), first.y());
-    center_x = (first.x() + second.x() + (second.x()-first.x())/2-(second.y()-first.y())/2+first.x())/3;
-    center_y = (first.y() + second.y() + (second.x()-first.x())*sqrt(3)/2+(second.y()-first.y())*sqrt(3)/2+first.y())/3;
-    qDebug("3333");
 
+    if(first.y() < second.y()){
+        painter.drawLine(first.x(),second.y(),second.x(),second.y());
+        painter.drawLine(first.x(),second.y(),(first.x()+second.x())/2,first.y());
+        painter.drawLine(second.x(),second.y(),(first.x()+second.x())/2,first.y());
+    } else {
+        painter.drawLine(first.x(),first.y(),second.x(),first.y());
+        painter.drawLine(first.x(),first.y(),(first.x()+second.x())/2,second.y());
+        painter.drawLine(second.x(),first.y(),(first.x()+second.x())/2,second.y());
+    }
 }
 
-void Triangle::mouseReleaseEvent(QMouseEvent * ev) {
-    if(is_drawing){
-        emit is_shape_finished();
-    }
-    is_drawing = false;
+bool Triangle::point_inside_shape(QPoint pt){
+    float d1, d2, d3;
+    bool has_neg, has_pos;
+
+    QPoint v1 = QPoint(first.x(),second.y());
+    QPoint v2 = QPoint(second.x(),second.y());
+    QPoint v3 = QPoint((first.x()+second.x())/2,first.y());
+
+    d1 = sign(pt, v1, v2);
+    d2 = sign(pt, v2, v3);
+    d3 = sign(pt, v3, v1);
+
+    has_neg = (d1 < 0) || (d2 < 0) || (d3 < 0);
+    has_pos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+
+    return !(has_neg && has_pos);
+}
+
+float Triangle::sign(QPoint p1, QPoint p2, QPoint p3)
+{
+    return (p1.x() - p3.x()) * (p2.y() - p3.y()) - (p2.x() - p3.x()) * (p1.y() - p3.y());
 }
 
 Triangle::~Triangle(){
-    qDebug("444444444");
 }
+
+
+

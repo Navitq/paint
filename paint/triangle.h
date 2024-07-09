@@ -7,25 +7,20 @@
 #include <QMouseEvent>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <shape.h>
 
-class Triangle : public QWidget
+class Triangle : public Shape
 {
     Q_OBJECT
 public:
-    explicit Triangle(QWidget *parent = nullptr);
-    void paintEvent(QPaintEvent*) ;
-    void mouseMoveEvent(QMouseEvent * ev) override;
-    void mousePressEvent(QMouseEvent * ev) override;
-    void mouseReleaseEvent(QMouseEvent * ev);
-    bool is_drawing;
-    double center_x;
-    double center_y;
+    explicit Triangle(Shape *parent = nullptr);
+    void paintEvent(QPaintEvent*) override;
+    bool point_inside_shape(QPoint point) override;
+    float sign(QPoint p1, QPoint p2, QPoint p3);
     QHBoxLayout *draw_canvas;
-    QPoint first;
-    QPoint second;
     ~Triangle();
 signals:
-    void is_shape_finished();
+    //void shape_finished();
 };
 
 #endif // TRIANGLE_H

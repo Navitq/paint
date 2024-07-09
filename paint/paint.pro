@@ -14,6 +14,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     rectangle.cpp \
+    shape.cpp \
     triangle.cpp
 
 HEADERS += \
@@ -21,6 +22,7 @@ HEADERS += \
     ellipse.h \
     mainwindow.h \
     rectangle.h \
+    shape.h \
     triangle.h
 
 FORMS += \

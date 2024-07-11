@@ -42,6 +42,73 @@ void Draw_widget::shape_display(Shape* shape){
     shape->show();
 }
 
+QSize Draw_widget::get_size() {
+    return this->size();
+}
+
+void Draw_widget::save_data(){
+    QSize size = get_size();
+    QString file_name = QUuid::createUuid().toString();
+    file_name.append(".txt");
+    QFile *file = new QFile(file_name);
+    file->open(QIODevice::WriteOnly | QIODevice::Text);
+
+    QString width = QString::number(size.width()).append(";");
+    QString height = QString::number(size.height()).append(";\n");
+
+    if(file->isOpen()){
+        QTextStream writeStream(file);
+        writeStream << width + height;
+        writeStream << get_position_list(rectangle_v);
+        writeStream << get_position_list(triangle_v);
+        writeStream << get_position_list(ellipse_v);
+        file->close();
+    }
+}
+
+
+void Draw_widget::download_data(QString path){
+
+    QFile *file = new QFile(path);
+    file->open(QIODevice::ReadOnly | QIODevice::Text);
+    if(file->isOpen()){
+        // QTextStream writeStream(file);
+        // writeStream << width + height;
+        // writeStream << get_position_list(rectangle_v);
+        // writeStream << get_position_list(triangle_v);
+        // writeStream << get_position_list(ellipse_v);
+        file->close();
+    }
+}
+
+QString Draw_widget::get_position_list(QList<Rectangle*> rectangle) {
+    QString positions;
+    for (auto rect : rectangle) {
+        positions += rect->get_position() + ";";
+    }
+    positions+="\n";
+    return positions;
+}
+
+
+QString Draw_widget::get_position_list(QList<Ellipse*> ellipse) {
+    QString positions;
+    for (auto ell : ellipse) {
+        positions += ell->get_position() + ";";
+    }
+    positions+="\n";
+    return positions;
+}
+
+QString Draw_widget::get_position_list(QList<Triangle*> triangle) {
+    QString positions;
+    for (auto trian : triangle) {
+        positions += trian->get_position() + ";";
+    }
+    positions+="\n";
+    return positions;
+}
+
 void Draw_widget::draw_rectangle(){
     Rectangle *new_rect = new Rectangle();
     shape_display(new_rect);
@@ -145,6 +212,7 @@ void Draw_widget::mousePressEvent(QMouseEvent* ev){
             delete active_shape;
         }
     }
+
 }
 
 void Draw_widget::mouseMoveEvent(QMouseEvent* ev){

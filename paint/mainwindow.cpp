@@ -92,11 +92,14 @@ void MainWindow::removing_shape(){
 }
 
 void MainWindow::uploading_shape(){
-    qDebug()<<"6";
+    canvas->set_action(6);
+    QString path = QFileDialog::getOpenFileName(0, "Открыть", "", "*.txt");
+    canvas->download_data(path);
 }
 
 void MainWindow::downloading_shape(){
-    qDebug()<<"7";
+    canvas->set_action(7);
+    canvas->save_data();
 }
 
 MainWindow::~MainWindow(){

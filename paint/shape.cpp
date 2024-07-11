@@ -60,3 +60,11 @@ void Shape::corner_ordering(){
         this->second.setY(first.y());
     }
 }
+
+QString Shape::get_position(){
+    QString first_x = QString::number(first.x()) + ",";
+    QString first_y = QString::number(first.y()) + ",";
+    QString second_x = QString::number(second.x()) + ",";
+    QString second_y = QString::number(second.y());
+    return first_x + first_y + second_x + second_y;
+}

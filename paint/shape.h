@@ -20,7 +20,7 @@ public:
     QPoint getOrigin();
     void corner_ordering();
     virtual bool point_inside_shape(QPoint point) = 0;
-
+    QString get_position();
     QPoint move_point;
     int dx;
     int dy;

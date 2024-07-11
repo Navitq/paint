@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QFileDialog>
 #include "draw_widget.h"
 
 QT_BEGIN_NAMESPACE
@@ -35,8 +36,6 @@ private:
     QHBoxLayout *draw_layout;
     QHBoxLayout *buttons_layout;
     Draw_widget *canvas;
-
-
 };
 
 

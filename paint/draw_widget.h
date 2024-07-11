@@ -7,6 +7,9 @@
 #include <QMouseEvent>
 #include <QList>
 #include <QHBoxLayout>
+#include <QUuid>
+#include <QFile>
+#include <QTextStream>
 #include "shape.h"
 #include "rectangle.h"
 #include "ellipse.h"
@@ -46,6 +49,12 @@ public:
     void find_shape2(QMouseEvent* ev);
     bool check_shape2(Shape* shape, QMouseEvent* ev);
     void shape_display(Shape* shape);
+    void save_data();
+    QSize get_size();
+    QString get_position_list(QList<Ellipse*> ellipse);
+    QString get_position_list(QList<Rectangle*> rectangle);
+    QString get_position_list(QList<Triangle*> triangle);
+    void download_data(QString path);
     QWidget *appWidget;
     void set_action(int x);
 

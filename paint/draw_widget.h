@@ -57,6 +57,7 @@ public:
     void load_rectangel(QString shape);
     void load_triangle(QString shape);
     void load_ellipse(QString shape);
+    void load_link(QString shape);
     QString get_position_list(QList<Ellipse*> ellipse);
     QString get_position_list(QList<Rectangle*> rectangle);
     QString get_position_list(QList<Triangle*> triangle);

@@ -9,6 +9,8 @@ class Line : public QWidget
     Q_OBJECT
 public:
     explicit Line(QWidget *parent = nullptr);
+    Line(Shape *shape_one, Shape *shape_two);
+
     QPoint first = QPoint(0,0);
     QPoint second = QPoint(0,0);
 

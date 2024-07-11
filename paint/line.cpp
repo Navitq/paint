@@ -5,6 +5,14 @@ Line::Line(QWidget *parent)
     : QWidget{parent}
 {}
 
+Line::Line(Shape *shape_one, Shape *shape_two)
+{
+    first_shape = shape_one;
+    second_shape = shape_two;
+    first = first_shape->getOrigin();
+    second = second_shape->getOrigin();
+}
+
 void Line::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);
@@ -27,7 +35,6 @@ void Line::drawMove(QPoint point){
 void Line::drawRelease(Shape* shape){
     second_shape = shape;
     second = second_shape->getOrigin();
-    update();
 }
 
 void Line::moveMove(Shape* shape){

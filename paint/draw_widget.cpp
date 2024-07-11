@@ -120,7 +120,15 @@ void Draw_widget::download_data(QString path){
             break;
         }
         case 4:{
-            //slot for connections
+            QStringList shape = split_downloaded_string(container[4]);
+            if(shape.length()<1){
+                continue;
+            }
+            shape.pop_back();
+            for(int i =0;i < shape.length();++i){
+                load_link(shape[i]);
+            }
+            break;
         }
         default:
             break;
@@ -144,6 +152,61 @@ void Draw_widget::load_ellipse(QString shape){
     Ellipse *new_elipse = new Ellipse(split_downloaded_string(shape, ','));
     shape_display(new_elipse);
     ellipse_v.push_back(new_elipse);
+}
+
+
+
+void Draw_widget::load_link(QString shape){
+    Shape *shape_one;
+    Shape *shape_two;
+
+    switch(QString(shape[0]).toInt())
+    {
+        case 0:
+        {
+        shape_one = rectangle_v[QString(shape[1]).toInt()];
+            break;
+        }
+        case 1:
+        {
+            shape_one = triangle_v[QString(shape[1]).toInt()];
+            break;
+        }
+        case 2:
+        {
+            shape_one = ellipse_v[QString(shape[1]).toInt()];
+            break;
+        }
+        default:
+            break;
+    }
+
+        switch(QString(shape[2]).toInt())
+        {
+        case 0:
+        {
+            shape_two = rectangle_v[QString(shape[3]).toInt()];
+            break;
+        }
+        case 1:
+        {
+            shape_two = triangle_v[QString(shape[3]).toInt()];
+            break;
+        }
+        case 2:
+        {
+            shape_two = ellipse_v[QString(shape[3]).toInt()];
+            break;
+        }
+        default:
+            break;
+        }
+
+    Line* new_line = new Line(shape_one, shape_two);
+    new_line->setGeometry(this->rect());
+    new_line->setParent(this);
+    new_line->show();
+    line_v.push_back(std::make_pair(new_line, false));
 }
 
 QStringList Draw_widget::split_downloaded_string(QString string, char separator){
@@ -188,8 +251,6 @@ QString Draw_widget::get_position_list(QList <std::pair<Line*, bool>> line_v) {
     for (auto line : line_v) {
         positions += get_line_position(line.first)  + ";";
     }
-    qDebug() << positions;
-
     return positions;
 }
 

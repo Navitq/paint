@@ -62,6 +62,7 @@ void Draw_widget::save_data(){
         writeStream << get_position_list(rectangle_v);
         writeStream << get_position_list(triangle_v);
         writeStream << get_position_list(ellipse_v);
+        writeStream << get_position_list(line_v);
         file->close();
     }
 }
@@ -71,12 +72,13 @@ void Draw_widget::download_data(QString path){
 
     QFile *file = new QFile(path);
     file->open(QIODevice::ReadOnly | QIODevice::Text);
+    QList<QString> container;
     if(file->isOpen()){
-        // QTextStream writeStream(file);
-        // writeStream << width + height;
-        // writeStream << get_position_list(rectangle_v);
-        // writeStream << get_position_list(triangle_v);
-        // writeStream << get_position_list(ellipse_v);
+        QTextStream writeStream(file);
+        while (!file->atEnd()) {
+            container.push_back(file->readLine());
+            qDebug() << container.last();
+        }
         file->close();
     }
 }
@@ -108,6 +110,75 @@ QString Draw_widget::get_position_list(QList<Triangle*> triangle) {
     positions+="\n";
     return positions;
 }
+
+QString Draw_widget::get_position_list(QList <std::pair<Line*, bool>> line_v) {
+    QString positions;
+    for (auto line : line_v) {
+        positions += get_line_position(line.first)  + ";";
+    }
+    qDebug() << positions;
+
+    return positions;
+}
+
+QString Draw_widget::get_line_position(Line* line){
+    QString first_class = line->first_shape->metaObject()->className();
+    QString second_class = line->second_shape->metaObject()->className();
+    QString line_info = "";
+    if(first_class == "Rectangle"){
+        line_info.append("0");
+            for(int i = 0;i < rectangle_v.length();++i){
+                if(rectangle_v[i] == line->first_shape){
+                    line_info.append(QString::number(i));
+                    break;
+                }
+            }
+    } else if(first_class == "Triangle") {
+        line_info.append("1");
+        for(int i = 0;i < triangle_v.length();++i){
+            if(triangle_v[i] == line->first_shape){
+                line_info.append(QString::number(i));
+                break;
+            }
+        }
+    } else if (first_class == "Ellipse"){
+        line_info.append("2");
+        for(int i = 0;i < ellipse_v.length();++i){
+            if(ellipse_v[i] == line->first_shape){
+                line_info.append(QString::number(i));
+                break;
+            }
+        }
+    }
+
+    if(second_class == "Rectangle"){
+        line_info.append("0");
+        for(int i = 0;i < rectangle_v.length();++i){
+            if(rectangle_v[i] == line->second_shape){
+                line_info.append(QString::number(i));
+                break;
+            }
+        }
+    } else if(second_class == "Triangle") {
+        line_info.append("1");
+        for(int i = 0;i < triangle_v.length();++i){
+            if(triangle_v[i] == line->second_shape){
+                line_info.append(QString::number(i));
+                break;
+            }
+        }
+    } else if (second_class == "Ellipse"){
+        line_info.append("2");
+        for(int i = 0;i < ellipse_v.length();++i){
+            if(ellipse_v[i] == line->second_shape){
+                line_info.append(QString::number(i));
+                break;
+            }
+        }
+    }
+    return line_info;
+}
+
 
 void Draw_widget::draw_rectangle(){
     Rectangle *new_rect = new Rectangle();

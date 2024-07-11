@@ -10,6 +10,7 @@
 #include <QUuid>
 #include <QFile>
 #include <QTextStream>
+#include <QMetaObject>
 #include "shape.h"
 #include "rectangle.h"
 #include "ellipse.h"
@@ -54,6 +55,8 @@ public:
     QString get_position_list(QList<Ellipse*> ellipse);
     QString get_position_list(QList<Rectangle*> rectangle);
     QString get_position_list(QList<Triangle*> triangle);
+    QString get_position_list(QList <std::pair<Line*, bool>> line_v);
+    QString get_line_position(Line* line);
     void download_data(QString path);
     QWidget *appWidget;
     void set_action(int x);

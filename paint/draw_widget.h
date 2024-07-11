@@ -46,7 +46,7 @@ public:
     void mousePressEvent(QMouseEvent * ev) override;
     void mouseMoveEvent(QMouseEvent * ev) override;
     void mouseReleaseEvent(QMouseEvent * ev) override;
-    void keyPressEvent(QKeyEvent *event);
+    //void keyPressEvent(QKeyEvent *event);
     void draw_shape(Shape* shape);
     void find_shape(QMouseEvent* ev);
     bool check_shape(Shape* shape, QMouseEvent* ev);

@@ -1,12 +1,12 @@
 #include "shape.h"
-#include "qevent.h"
 
 Shape::Shape(QWidget* parent)
     : QWidget{parent}
 {}
 
 void Shape::drawPress(QPoint point) {
-        first = point;
+    first = point;
+    second = point;
 }
 
 void Shape::movePress(QPoint point) {
@@ -33,11 +33,14 @@ void Shape::drawRelease(QPoint point){
     corner_ordering();
     height = second.y()-first.y();
     width = second.x()-first.x();
-    emit shape_finished();
 }
 
 void Shape::moveRelease(QPoint point){
 
+}
+
+QPoint Shape::getOrigin(){
+    return QPoint((first.x()+second.x())/2, (first.y()+second.y())/2);
 }
 
 void Shape::corner_ordering(){

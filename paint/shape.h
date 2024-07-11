@@ -17,6 +17,7 @@ public:
     void moveMove(QPoint point);
     void drawRelease(QPoint point);
     void moveRelease(QPoint point);
+    QPoint getOrigin();
     void corner_ordering();
     virtual bool point_inside_shape(QPoint point) = 0;
 
@@ -27,7 +28,6 @@ public:
     int width;
 
 signals:
-    void shape_finished();
 };
 
 #endif // SHAPE_H

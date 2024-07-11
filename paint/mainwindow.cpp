@@ -68,30 +68,27 @@ MainWindow::MainWindow(QWidget *parent)
 }
 
 void MainWindow::add_rectangle(){
-    canvas->delete_shape();
-    canvas->draw_rectangle();
+    canvas->set_action(0);
 }
 
 void MainWindow::add_triangle(){
-    canvas->delete_shape();
-    canvas->draw_triangle();
+    canvas->set_action(1);
 }
 
 void MainWindow::add_ellipse(){
-    canvas->delete_shape();
-    canvas->draw_ellipse();
+    canvas->set_action(2);
 }
 
 void MainWindow::add_link(){
-    qDebug()<<"3";
+    canvas->set_action(3);
 }
 
 void MainWindow::moving_shape(){
-    canvas->shape_moving();
+    canvas->set_action(4);
 }
 
 void MainWindow::removing_shape(){
-    qDebug()<<"5";
+    canvas->set_action(5);
 }
 
 void MainWindow::uploading_shape(){

@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     draw_widget.cpp \
     ellipse.cpp \
+    line.cpp \
     main.cpp \
     mainwindow.cpp \
     rectangle.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
 HEADERS += \
     draw_widget.h \
     ellipse.h \
+    line.h \
     mainwindow.h \
     rectangle.h \
     shape.h \

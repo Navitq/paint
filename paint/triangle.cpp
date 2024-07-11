@@ -4,6 +4,13 @@ Triangle::Triangle(Shape *parent)
     : Shape{parent}
 {}
 
+Triangle::Triangle(QStringList string)
+{
+    first.setX(string[0].toInt());
+    first.setY(string[1].toInt());
+    drawRelease(QPoint(string[2].toInt(),string[3].toInt()));
+}
+
 void Triangle::paintEvent(QPaintEvent*)
 {
     QPainter painter(this);

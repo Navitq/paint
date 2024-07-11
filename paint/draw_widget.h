@@ -50,8 +50,13 @@ public:
     void find_shape2(QMouseEvent* ev);
     bool check_shape2(Shape* shape, QMouseEvent* ev);
     void shape_display(Shape* shape);
+    void set_dimensions(QString dimension);
     void save_data();
+    QStringList split_downloaded_string(QString string, char separator = ';');
     QSize get_size();
+    void load_rectangel(QString shape);
+    void load_triangle(QString shape);
+    void load_ellipse(QString shape);
     QString get_position_list(QList<Ellipse*> ellipse);
     QString get_position_list(QList<Rectangle*> rectangle);
     QString get_position_list(QList<Triangle*> triangle);

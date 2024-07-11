@@ -43,7 +43,7 @@ void Draw_widget::shape_display(Shape* shape){
 }
 
 QSize Draw_widget::get_size() {
-    return this->size();
+    return this->parentWidget()->parentWidget()->size();
 }
 
 void Draw_widget::save_data(){
@@ -77,10 +77,82 @@ void Draw_widget::download_data(QString path){
         QTextStream writeStream(file);
         while (!file->atEnd()) {
             container.push_back(file->readLine());
-            qDebug() << container.last();
         }
-        file->close();
     }
+
+    for(int i = 0;i < container.length();++i){
+        switch(i)
+        {
+        case 0:
+            set_dimensions(container[0]);
+            break;
+        case 1:{
+            QStringList shape = split_downloaded_string(container[1]);
+            if(shape.length()<1){
+                continue;
+            }
+            shape.pop_back();
+            for(int i =0;i < shape.length();++i){
+                load_rectangel(shape[i]);
+            }
+            break;
+        }
+        case 2:{
+            QStringList shape = split_downloaded_string(container[2]);
+            if(shape.length()<1){
+                continue;
+            }
+            shape.pop_back();
+            for(int i =0;i < shape.length();++i){
+                load_triangle(shape[i]);
+            }
+            break;
+        }
+        case 3:{
+            QStringList shape = split_downloaded_string(container[3]);
+            if(shape.length()<1){
+                continue;
+            }
+            shape.pop_back();
+            for(int i =0;i < shape.length();++i){
+                load_ellipse(shape[i]);
+            }
+            break;
+        }
+        case 4:{
+            //slot for connections
+        }
+        default:
+            break;
+        }
+    }
+}
+
+void Draw_widget::load_rectangel(QString shape){
+    Rectangle *new_rect = new Rectangle(split_downloaded_string(shape, ','));
+    shape_display(new_rect);
+    rectangle_v.push_back(new_rect);
+}
+
+void Draw_widget::load_triangle(QString shape){
+    Triangle *new_trian = new Triangle(split_downloaded_string(shape, ','));
+    shape_display(new_trian);
+    triangle_v.push_back(new_trian);
+}
+
+void Draw_widget::load_ellipse(QString shape){
+    Ellipse *new_elipse = new Ellipse(split_downloaded_string(shape, ','));
+    shape_display(new_elipse);
+    ellipse_v.push_back(new_elipse);
+}
+
+QStringList Draw_widget::split_downloaded_string(QString string, char separator){
+    return string.split(separator);
+}
+
+void Draw_widget::set_dimensions(QString demension){
+    QStringList sizes = split_downloaded_string(demension);
+    this->parentWidget()->parentWidget()->resize(sizes[0].toInt(), sizes[1].toInt());
 }
 
 QString Draw_widget::get_position_list(QList<Rectangle*> rectangle) {

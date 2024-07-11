@@ -14,6 +14,7 @@ class Ellipse : public Shape
     Q_OBJECT
 public:
     explicit Ellipse(Shape *parent = nullptr);
+    Ellipse(QStringList string);
     void paintEvent(QPaintEvent*) override;
     bool point_inside_shape(QPoint point) override;
     QHBoxLayout *draw_canvas;

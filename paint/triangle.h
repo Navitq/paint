@@ -14,6 +14,7 @@ class Triangle : public Shape
     Q_OBJECT
 public:
     explicit Triangle(Shape *parent = nullptr);
+    Triangle(QStringList string);
     void paintEvent(QPaintEvent*) override;
     bool point_inside_shape(QPoint point) override;
     float sign(QPoint p1, QPoint p2, QPoint p3);

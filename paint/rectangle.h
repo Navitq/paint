@@ -15,6 +15,7 @@ class Rectangle : public Shape
     Q_OBJECT
 public:
     explicit Rectangle(Shape *parent = nullptr);
+    Rectangle(QStringList stringList);
     void paintEvent(QPaintEvent*) override;
     bool point_inside_shape(QPoint point) override;
     QHBoxLayout *draw_canvas;

@@ -16,7 +16,8 @@ Draw_widget::Draw_widget(QWidget *parent)
     this->setAutoFillBackground(true);
     this->setPalette(Pal);
     this->show();
-
+    setFocusPolicy(Qt::StrongFocus);
+    setFocus();
 }
 
 void Draw_widget::resizeEvent(QResizeEvent *event) {
@@ -369,7 +370,74 @@ void Draw_widget::find_shape(QMouseEvent* ev){
     }
 }
 
+// void Draw_widget::keyPressEvent(QKeyEvent *event) {
+//     qDebug("123123");
+
+//     if(event->key() == Qt::Key_Escape) {
+//         if(current_action == 0){
+//             Rectangle* delete_shape = rectangle_v.last();
+//             rectangle_v.pop_back();
+//             delete delete_shape;
+//             is_right_clicked = true;
+//         }
+//         else if(current_action == 1){
+//             Triangle* delete_shape = triangle_v.last();
+//             triangle_v.pop_back();
+//             delete delete_shape;
+//             is_right_clicked = true;
+//         }
+//         else if(current_action == 2){
+//             Ellipse* delete_shape = ellipse_v.last();
+//             ellipse_v.pop_back();
+//             delete delete_shape;
+//             is_right_clicked = true;
+//         }
+//         else if(current_action == 3){
+//             auto delete_shape = line_v.last();
+//             line_v.pop_back();
+//             delete delete_shape.first;
+//             is_right_clicked = true;
+//         }
+//         else if(current_action == 4){
+//             is_right_clicked = true;
+//         }
+//     }
+//     QWidget::keyPressEvent(event);
+// }
+
 void Draw_widget::mousePressEvent(QMouseEvent* ev){
+    if (ev->button() == Qt::RightButton) {
+        if ((ev->buttons() & Qt::LeftButton) && (ev->button() == Qt::RightButton) && !is_right_clicked) {
+            if(current_action == 0){
+                Rectangle* delete_shape = rectangle_v.last();
+                rectangle_v.pop_back();
+                delete delete_shape;
+                is_right_clicked = true;
+            }
+            else if(current_action == 1){
+                Triangle* delete_shape = triangle_v.last();
+                triangle_v.pop_back();
+                delete delete_shape;
+                is_right_clicked = true;
+            }
+            else if(current_action == 2){
+                Ellipse* delete_shape = ellipse_v.last();
+                ellipse_v.pop_back();
+                delete delete_shape;
+                is_right_clicked = true;
+            }
+            else if(current_action == 3){
+                auto delete_shape = line_v.last();
+                line_v.pop_back();
+                delete delete_shape.first;
+                is_right_clicked = true;
+            }
+            else if(current_action == 4){
+                is_right_clicked = true;
+            }
+        }
+        return;
+    }
     if(current_action == 0){
         draw_rectangle();
         rectangle_v.last()->drawPress(ev->pos());
@@ -413,13 +481,15 @@ void Draw_widget::mousePressEvent(QMouseEvent* ev){
                     }
                 }
             }
-            delete active_shape;
+            active_shape->hide();
         }
     }
-
 }
 
 void Draw_widget::mouseMoveEvent(QMouseEvent* ev){
+    if (ev->buttons() & Qt::RightButton || is_right_clicked ) {
+        return;
+    }
     if(current_action == 0){
         rectangle_v.last()->drawMove(ev->pos());
     }
@@ -447,6 +517,16 @@ void Draw_widget::mouseMoveEvent(QMouseEvent* ev){
 }
 
 void Draw_widget::mouseReleaseEvent(QMouseEvent* ev){
+    if (ev->buttons() == Qt::NoButton && (current_action == 0 || current_action == 1 ||current_action == 2 || current_action == 3 || current_action == 4)) {
+        qDebug()<< QString::number(current_action);
+        if(is_right_clicked){
+            is_right_clicked = false;
+            return;
+        }
+    } else if (is_right_clicked && (current_action == 0 || current_action == 1 ||current_action == 2 || current_action == 3 || current_action == 4)){
+        return;
+    }
+
     if(current_action == 0){
         rectangle_v.last()->drawRelease(ev->pos());
     }

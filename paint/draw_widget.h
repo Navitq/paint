@@ -11,6 +11,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QMetaObject>
+#include <QCoreApplication>
 #include "shape.h"
 #include "rectangle.h"
 #include "ellipse.h"
@@ -34,6 +35,7 @@ public:
     Shape* active_shape2;
     bool shape_found = false;
     bool shape_found2 = false;
+    bool is_right_clicked = false;
     short current_action;
     explicit Draw_widget(QWidget *parent = nullptr);
     void resizeEvent(QResizeEvent *event) override;
@@ -44,6 +46,7 @@ public:
     void mousePressEvent(QMouseEvent * ev) override;
     void mouseMoveEvent(QMouseEvent * ev) override;
     void mouseReleaseEvent(QMouseEvent * ev) override;
+    void keyPressEvent(QKeyEvent *event);
     void draw_shape(Shape* shape);
     void find_shape(QMouseEvent* ev);
     bool check_shape(Shape* shape, QMouseEvent* ev);

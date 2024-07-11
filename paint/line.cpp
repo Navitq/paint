@@ -35,6 +35,7 @@ void Line::drawMove(QPoint point){
 void Line::drawRelease(Shape* shape){
     second_shape = shape;
     second = second_shape->getOrigin();
+    update();
 }
 
 void Line::moveMove(Shape* shape){

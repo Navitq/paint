@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    setMouseTracking(true);
     QHBoxLayout *buttons_layout = new QHBoxLayout();
     QHBoxLayout *draw_layout = new QHBoxLayout();
     QVBoxLayout *main_layout = new QVBoxLayout();

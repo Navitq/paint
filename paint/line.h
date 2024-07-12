@@ -8,14 +8,15 @@ class Line : public QWidget
 {
     Q_OBJECT
 public:
+    //Line();
     explicit Line(QWidget *parent = nullptr);
     Line(Shape *shape_one, Shape *shape_two);
 
     QPoint first = QPoint(0,0);
     QPoint second = QPoint(0,0);
 
-    Shape* first_shape;
-    Shape* second_shape;
+    Shape* first_shape = nullptr;
+    Shape* second_shape = nullptr;
 
     void paintEvent(QPaintEvent*);
 

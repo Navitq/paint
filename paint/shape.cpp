@@ -2,7 +2,7 @@
 
 Shape::Shape(QWidget* parent)
     : QWidget{parent}
-{}
+{setMouseTracking(true);}
 
 void Shape::drawPress(QPoint point) {
     first = point;

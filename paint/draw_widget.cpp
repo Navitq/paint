@@ -37,6 +37,27 @@ void Draw_widget::set_action(int x){
     current_action = x;
 }
 
+void Draw_widget::removeShape(Shape* shape){
+    for(int i = 0; i < rectangle_v.size(); i++){
+        if(rectangle_v[i] == shape){
+            delete rectangle_v.takeAt(i);
+            return;
+        }
+    }
+    for(int i = 0; i < triangle_v.size(); i++){
+        if(triangle_v[i] == shape){
+            delete triangle_v.takeAt(i);
+            return;
+        }
+    }
+    for(int i = 0; i < ellipse_v.size(); i++){
+        if(ellipse_v[i] == shape){
+            delete ellipse_v.takeAt(i);
+            return;
+        }
+    }
+}
+
 void Draw_widget::shape_display(Shape* shape){
     shape->setGeometry(this->rect());
     shape->setParent(this);
@@ -68,8 +89,30 @@ void Draw_widget::save_data(){
     }
 }
 
-
 void Draw_widget::download_data(QString path){
+    for(auto shape: rectangle_v){
+        removeShape(shape);
+    }
+    rectangle_v.clear();
+    for(auto shape: triangle_v){
+        removeShape(shape);
+    }
+    triangle_v.clear();
+    for(auto shape: ellipse_v){
+        removeShape(shape);
+    }
+    ellipse_v.clear();
+    for(int i = 0 ;i < line_v.length();i++){
+        auto delete_shape = line_v.last();
+        line_v.pop_back();
+        delete delete_shape.first;
+    }
+    line_v.clear();
+    QList<QWidget*> children = this->findChildren<QWidget*>();
+    for (QWidget* child : children) {
+        delete child;
+    }
+    update();
 
     QFile *file = new QFile(path);
     file->open(QIODevice::ReadOnly | QIODevice::Text);
@@ -370,42 +413,42 @@ void Draw_widget::find_shape(QMouseEvent* ev){
     }
 }
 
-// void Draw_widget::keyPressEvent(QKeyEvent *event) {
-//     qDebug("123123");
+void Draw_widget::keyPressEvent(QKeyEvent *ev) {
+    qDebug("123123");
 
-//     if(event->key() == Qt::Key_Escape) {
-//         if(current_action == 0){
-//             Rectangle* delete_shape = rectangle_v.last();
-//             rectangle_v.pop_back();
-//             delete delete_shape;
-//             is_right_clicked = true;
-//         }
-//         else if(current_action == 1){
-//             Triangle* delete_shape = triangle_v.last();
-//             triangle_v.pop_back();
-//             delete delete_shape;
-//             is_right_clicked = true;
-//         }
-//         else if(current_action == 2){
-//             Ellipse* delete_shape = ellipse_v.last();
-//             ellipse_v.pop_back();
-//             delete delete_shape;
-//             is_right_clicked = true;
-//         }
-//         else if(current_action == 3){
-//             auto delete_shape = line_v.last();
-//             line_v.pop_back();
-//             delete delete_shape.first;
-//             is_right_clicked = true;
-//         }
-//         else if(current_action == 4){
-//             is_right_clicked = true;
-//         }
-//     }
-//     QWidget::keyPressEvent(event);
-// }
+    if(ev->key() == Qt::Key_Escape && !is_right_clicked && is_active) {
+        if(current_action == 0){
+                Rectangle* delete_shape = rectangle_v.last();
+                rectangle_v.pop_back();
+                delete delete_shape;
+        }
+        else if(current_action == 1){
+                Triangle* delete_shape = triangle_v.last();
+                triangle_v.pop_back();
+                delete delete_shape;
+        }
+        else if(current_action == 2){
+                Ellipse* delete_shape = ellipse_v.last();
+                ellipse_v.pop_back();
+                delete delete_shape;
+        }
+        else if(current_action == 3){
+                auto delete_shape = line_v.last();
+                line_v.pop_back();
+                delete delete_shape.first;
+        }
+        if(current_action != 5 || current_action != 6 || current_action != 7){
+            is_right_clicked = true;
+        }
+        return;
+    }
+}
 
 void Draw_widget::mousePressEvent(QMouseEvent* ev){
+    if(current_action != 5 || current_action != 6 || current_action != 7){
+        is_active = true;
+    }
+
     if (ev->button() == Qt::RightButton) {
         if ((ev->buttons() & Qt::LeftButton) && (ev->button() == Qt::RightButton) && !is_right_clicked) {
             if(current_action == 0){
@@ -430,7 +473,9 @@ void Draw_widget::mousePressEvent(QMouseEvent* ev){
             }
 
         }
-        is_right_clicked = true;
+        if(current_action != 5 || current_action != 6 || current_action != 7){
+            is_right_clicked = true;
+        }
         return;
     }
     if(current_action == 0){
@@ -476,13 +521,15 @@ void Draw_widget::mousePressEvent(QMouseEvent* ev){
                     }
                 }
             }
-            active_shape->hide();
+            removeShape(active_shape);
         }
     }
 }
 
 void Draw_widget::mouseMoveEvent(QMouseEvent* ev){
+    //qDebug() << "mouseMoveEvent";
     if (ev->buttons() & Qt::RightButton || is_right_clicked ) {
+        qDebug() << "strange if statement";
         return;
     }
     if(current_action == 0){
@@ -495,7 +542,9 @@ void Draw_widget::mouseMoveEvent(QMouseEvent* ev){
         ellipse_v.last()->drawMove(ev->pos());
     }
     else if(current_action == 3){
+        qDebug() << "current_action == 3";
         if(shape_found){
+            qDebug() << "shape found in current_action == 3";
             line_v.last().first->drawMove(ev->pos());
         }
     }
@@ -512,6 +561,9 @@ void Draw_widget::mouseMoveEvent(QMouseEvent* ev){
 }
 
 void Draw_widget::mouseReleaseEvent(QMouseEvent* ev){
+    if(current_action != 5 || current_action != 6 || current_action != 7){
+        is_active = false;
+    }
     if(ev->buttons() == Qt::NoButton && (current_action == 0 || current_action == 1 ||current_action == 2 || current_action == 3 || current_action == 4)) {
         qDebug()<< QString::number(current_action);
         if(is_right_clicked){
@@ -532,13 +584,34 @@ void Draw_widget::mouseReleaseEvent(QMouseEvent* ev){
         ellipse_v.last()->drawRelease(ev->pos());
     }
     else if(current_action == 3){
+        // find_shape(ev);
+        // if(shape_found){
+        //     draw_line();
+        //     line_v.last().first->drawPress(active_shape, ev->pos());
+        // }
         if(shape_found){
+            qDebug() << "if shape found";
             find_shape(ev);
             if(shape_found && active_shape != line_v.last().first->first_shape){
                 line_v.last().first->drawRelease(active_shape);
+                active_shape = nullptr;
+                shape_found = false;
             } else {
                 line_v.last().first->~Line();
                 line_v.pop_back();
+            }
+        }
+        else{
+            qDebug() << "if shape not found";
+            find_shape(ev);
+            if(shape_found){
+                // this->setMouseTracking(true);
+                // if(hasMouseTracking()){
+                //     qDebug() << "mouse tracking on";
+                // }
+                draw_line();
+                line_v.last().first->drawPress(active_shape, ev->pos());
+                line_v.last().first->setMouseTracking(true);
             }
         }
     }

@@ -36,7 +36,9 @@ public:
     bool shape_found = false;
     bool shape_found2 = false;
     bool is_right_clicked = false;
+    bool is_active = false;
     short current_action;
+    void removeShape(Shape* shape);
     explicit Draw_widget(QWidget *parent = nullptr);
     void resizeEvent(QResizeEvent *event) override;
     void draw_rectangle();
@@ -46,7 +48,7 @@ public:
     void mousePressEvent(QMouseEvent * ev) override;
     void mouseMoveEvent(QMouseEvent * ev) override;
     void mouseReleaseEvent(QMouseEvent * ev) override;
-    //void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event);
     void draw_shape(Shape* shape);
     void find_shape(QMouseEvent* ev);
     bool check_shape(Shape* shape, QMouseEvent* ev);

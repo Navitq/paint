@@ -3,7 +3,10 @@
 
 Line::Line(QWidget *parent)
     : QWidget{parent}
-{}
+{
+    qDebug() << "line constructor";
+    setMouseTracking(true);
+}
 
 Line::Line(Shape *shape_one, Shape *shape_two)
 {
@@ -28,6 +31,7 @@ void Line::drawPress(Shape* shape, QPoint point){
 }
 
 void Line::drawMove(QPoint point){
+    qDebug() << "Line::drawMove";
     second = point;
     update();
 }

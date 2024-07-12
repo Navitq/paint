@@ -1,0 +1,27 @@
+﻿  Generate moc_predefs.h
+  UIC mainwindow.ui
+  MOC draw_widget.h
+  MOC ellipse.h
+  MOC line.h
+  MOC mainwindow.h
+  MOC rectangle.h
+  MOC shape.h
+  MOC triangle.h
+  draw_widget.cpp
+  ellipse.cpp
+  line.cpp
+  main.cpp
+  mainwindow.cpp
+  rectangle.cpp
+  shape.cpp
+E:\с++\paint\paint\shape.cpp(38,32): warning C4100: point: неиспользованный формальный параметр
+  triangle.cpp
+  moc_draw_widget.cpp
+  moc_ellipse.cpp
+  moc_line.cpp
+  moc_mainwindow.cpp
+  moc_rectangle.cpp
+  moc_shape.cpp
+  moc_triangle.cpp
+  Создание кода...
+  paint.vcxproj -> E:\с++\paint\paint\debug\paint.exe
